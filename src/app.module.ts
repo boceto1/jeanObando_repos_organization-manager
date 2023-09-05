@@ -9,6 +9,7 @@ import { OrganizationModule } from './organization/organization.module';
 import { TribeModule } from './tribe/tribe.module';
 import { DB_OPTIONS } from './typeorm.config';
 import { RepositoryModule } from './repository/repository.module';
+import { MetricsModule } from './metrics/metrics.module';
 
 ConfigModule.forRoot({
   envFilePath: '../.env',
@@ -21,6 +22,7 @@ ConfigModule.forRoot({
     OrganizationModule,
     TribeModule,
     RepositoryModule,
+    MetricsModule,
   ],
   controllers: [MockApiController],
   providers: [MockApiService],

@@ -1,5 +1,12 @@
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToOne,
+} from 'typeorm';
+import { Metrics } from 'src/metrics/entities/metrics.entity';
 import { Tribe } from 'src/tribe/entities/tribe.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 export const RepositoryStateEnum = {
   ENABLE: 'E',
@@ -35,4 +42,7 @@ export class Repository {
 
   @ManyToOne(() => Tribe, (tribe) => tribe.repositories)
   tribe: Tribe;
+
+  @OneToOne(() => Metrics, (metrics) => metrics.repository)
+  metrics: Metrics;
 }
