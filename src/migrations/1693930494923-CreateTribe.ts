@@ -55,7 +55,7 @@ export class CreateTribe1693930494923 implements MigrationInterface {
     const foreignKey = table.foreignKeys.find(
       (fk) => fk.columnNames.indexOf('idOrganization') !== -1,
     );
-    await queryRunner.dropForeignKey('idOrganization', foreignKey);
+    await queryRunner.dropForeignKey('tribe', foreignKey);
     await queryRunner.dropColumn('tribe', 'idOrganization');
     await queryRunner.dropTable('tribe');
   }
