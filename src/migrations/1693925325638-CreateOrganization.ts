@@ -10,6 +10,9 @@ export class CreateOrganization1693925325638 implements MigrationInterface {
             name: 'idOrganization',
             type: 'int',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment',
+            generatedType: 'STORED',
           },
           {
             name: 'name',
@@ -23,6 +26,7 @@ export class CreateOrganization1693925325638 implements MigrationInterface {
           {
             name: 'deletedAt',
             type: 'datetime',
+            isNullable: true,
           },
         ],
       }),

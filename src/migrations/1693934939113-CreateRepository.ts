@@ -16,6 +16,9 @@ export class CreateRepository1693934939113 implements MigrationInterface {
             name: 'idRepository',
             type: 'int',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment',
+            generatedType: 'STORED',
           },
           {
             name: 'name',
