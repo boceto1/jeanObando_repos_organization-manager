@@ -8,6 +8,7 @@ import { MockApiService } from './mock-api/mock-api.service';
 import { OrganizationModule } from './organization/organization.module';
 import { TribeModule } from './tribe/tribe.module';
 import { DB_OPTIONS } from './typeorm.config';
+import { RepositoryModule } from './repository/repository.module';
 
 ConfigModule.forRoot({
   envFilePath: '../.env',
@@ -19,6 +20,7 @@ ConfigModule.forRoot({
     MockApiModule,
     OrganizationModule,
     TribeModule,
+    RepositoryModule,
   ],
   controllers: [MockApiController],
   providers: [MockApiService],

@@ -15,7 +15,7 @@ export class Organization {
   @Column({ length: 50, type: 'char' })
   name: string;
 
-  @Column()
+  @Column({ type: 'int' })
   status: number;
 
   @DeleteDateColumn()

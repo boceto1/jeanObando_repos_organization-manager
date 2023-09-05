@@ -1,5 +1,12 @@
 import { Organization } from 'src/organization/entities/organization.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Repository } from 'src/repository/entities/repository.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
 export class Tribe {
@@ -14,4 +21,7 @@ export class Tribe {
 
   @ManyToOne(() => Organization, (organization) => organization.tribes)
   organization: Organization;
+
+  @OneToMany(() => Repository, (repository) => repository.tribe)
+  repositories: Repository[];
 }
