@@ -12,8 +12,12 @@ export class OrganizationService {
     private organizationsRepository: Repository<Organization>,
   ) {}
 
-  create(createOrganizationDto: CreateOrganizationDto) {
-    return this.organizationsRepository.create(createOrganizationDto);
+  async create(createOrganizationDto: CreateOrganizationDto) {
+    const organization = await this.organizationsRepository.create(
+      createOrganizationDto,
+    );
+    await this.organizationsRepository.save(organization);
+    return { ok: true, message: 'Organization was created successfully' };
   }
 
   findAll() {
@@ -30,11 +34,23 @@ export class OrganizationService {
     return organization;
   }
 
-  update(id: number, updateOrganizationDto: UpdateOrganizationDto) {
-    return this.update(id, updateOrganizationDto);
+  async update(id: number, updateOrganizationDto: UpdateOrganizationDto) {
+    const updatedResult = await this.organizationsRepository.update(
+      id,
+      updateOrganizationDto,
+    );
+
+    if (updatedResult.affected === 0) {
+      throw new NotFoundException();
+    }
+    return { ok: true, message: 'Organization was updated successfully' };
   }
 
-  remove(id: number) {
-    return this.organizationsRepository.softDelete(id);
+  async remove(id: number) {
+    const deletedResult = await this.organizationsRepository.softDelete(id);
+    if (deletedResult.affected === 0) {
+      throw new NotFoundException();
+    }
+    return this.findAll();
   }
 }

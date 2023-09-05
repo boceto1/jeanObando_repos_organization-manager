@@ -1,4 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Organization {
@@ -10,4 +15,7 @@ export class Organization {
 
   @Column()
   status: number;
+
+  @DeleteDateColumn()
+  public deletedAt: Date;
 }
