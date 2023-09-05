@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { Metrics } from 'src/metrics/entities/metrics.entity';
 import { Tribe } from 'src/tribe/entities/tribe.entity';
@@ -41,6 +42,7 @@ export class Repository {
   logicStatus: string;
 
   @ManyToOne(() => Tribe, (tribe) => tribe.repositories)
+  @JoinColumn({ name: 'idTribe' })
   tribe: Tribe;
 
   @OneToOne(() => Metrics, (metrics) => metrics.repository)

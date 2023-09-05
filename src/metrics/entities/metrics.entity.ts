@@ -1,5 +1,5 @@
 import { Repository } from 'src/repository/entities/repository.entity';
-import { Entity, Column, PrimaryColumn, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn } from 'typeorm';
 
 @Entity()
 export class Metrics {
@@ -22,5 +22,6 @@ export class Metrics {
   codeSmells: number;
 
   @OneToOne(() => Repository, (repository) => repository.metrics)
+  @JoinColumn({ name: 'idRepository' })
   repository: Metrics;
 }

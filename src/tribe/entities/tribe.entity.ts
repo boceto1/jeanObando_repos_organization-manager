@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity()
@@ -20,6 +21,7 @@ export class Tribe {
   status: number;
 
   @ManyToOne(() => Organization, (organization) => organization.tribes)
+  @JoinColumn({ name: 'idOrganization' })
   organization: Organization;
 
   @OneToMany(() => Repository, (repository) => repository.tribe)
