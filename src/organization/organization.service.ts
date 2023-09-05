@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { Organization } from './entities/organization.entity';
+import { OKResult } from 'src/utils/types';
 
 @Injectable()
 export class OrganizationService {
@@ -12,7 +13,9 @@ export class OrganizationService {
     private organizationsRepository: Repository<Organization>,
   ) {}
 
-  async create(createOrganizationDto: CreateOrganizationDto) {
+  async create(
+    createOrganizationDto: CreateOrganizationDto,
+  ): Promise<OKResult> {
     const organization = await this.organizationsRepository.create(
       createOrganizationDto,
     );
@@ -20,11 +23,11 @@ export class OrganizationService {
     return { ok: true, message: 'Organization was created successfully' };
   }
 
-  findAll() {
+  findAll(): Promise<Organization[]> {
     return this.organizationsRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<Organization> {
     const organization = await this.organizationsRepository.findOne({
       where: { idOrganization: id },
     });
@@ -34,7 +37,10 @@ export class OrganizationService {
     return organization;
   }
 
-  async update(id: number, updateOrganizationDto: UpdateOrganizationDto) {
+  async update(
+    id: number,
+    updateOrganizationDto: UpdateOrganizationDto,
+  ): Promise<OKResult> {
     const updatedResult = await this.organizationsRepository.update(
       id,
       updateOrganizationDto,
@@ -46,7 +52,7 @@ export class OrganizationService {
     return { ok: true, message: 'Organization was updated successfully' };
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<Organization[]> {
     const deletedResult = await this.organizationsRepository.softDelete(id);
     if (deletedResult.affected === 0) {
       throw new NotFoundException();
