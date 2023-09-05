@@ -6,6 +6,7 @@ import { MockApiController } from './mock-api/mock-api.controller';
 import { MockApiService } from './mock-api/mock-api.service';
 import { OrganizationModule } from './organization/organization.module';
 import { Organization } from './organization/entities/organization.entity';
+import { TribeModule } from './tribe/tribe.module';
 
 const ORM_MODULE = TypeOrmModule.forRoot({
   type: 'mysql',
@@ -19,7 +20,7 @@ const ORM_MODULE = TypeOrmModule.forRoot({
 });
 
 @Module({
-  imports: [ORM_MODULE, MockApiModule, OrganizationModule],
+  imports: [ORM_MODULE, MockApiModule, OrganizationModule, TribeModule],
   controllers: [MockApiController],
   providers: [MockApiService],
 })

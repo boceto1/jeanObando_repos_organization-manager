@@ -1,8 +1,10 @@
+import { Tribe } from 'src/tribe/entities/tribe.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -18,4 +20,7 @@ export class Organization {
 
   @DeleteDateColumn()
   public deletedAt: Date;
+
+  @OneToMany(() => Tribe, (tribe) => tribe.organization)
+  tribes: Tribe[];
 }
