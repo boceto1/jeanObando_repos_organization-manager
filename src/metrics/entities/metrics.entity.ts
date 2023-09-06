@@ -23,5 +23,5 @@ export class Metrics {
 
   @OneToOne(() => Repository, (repository) => repository.metrics)
   @JoinColumn({ name: 'idRepository' })
-  repository: Metrics;
+  repository: Repository;
 }

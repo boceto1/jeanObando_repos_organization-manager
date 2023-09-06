@@ -3,7 +3,6 @@ import { join } from 'path';
 import { DataSource } from 'typeorm';
 import { SeederOptions } from 'typeorm-extension';
 import { DataSourceOptions } from 'typeorm/data-source';
-import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
 
 ConfigModule.forRoot({
   envFilePath: '.env',

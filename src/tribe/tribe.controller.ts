@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query, Res } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { TribeService } from './tribe.service';
+import { IResponseMetrics, TribeService } from './tribe.service';
 import { GetRepositoryMetricsQueryDto } from './dto/get-repository-metrics-query.dto';
 import { Response } from 'express';
 
@@ -15,7 +15,7 @@ export class TribeController {
   getRepositoryMetrics(
     @Param('id') id: string,
     @Query() query: GetRepositoryMetricsQueryDto,
-  ): Promise<any> {
+  ): Promise<IResponseMetrics[]> {
     return this.tribeService.getRepositoryMetrics(+id, query);
   }
 
