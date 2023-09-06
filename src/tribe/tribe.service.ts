@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository as RepositoryORM } from 'typeorm';
 import { Tribe } from './entities/tribe.entity';
 import { ThirdPartyValidatorService } from 'src/third-party-validator/third-party-validator.service';
-import { Repository } from 'src/repository/entities/repository.entity';
+import { Repository } from '../repository/entities/repository.entity';
 import {
   FilterByEnum,
   GetRepositoryMetricsQueryDto,

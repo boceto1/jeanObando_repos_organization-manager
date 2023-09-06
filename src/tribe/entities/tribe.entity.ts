@@ -1,5 +1,5 @@
-import { Organization } from 'src/organization/entities/organization.entity';
-import { Repository } from 'src/repository/entities/repository.entity';
+import { Organization } from '../../organization/entities/organization.entity';
+import { Repository } from '../../repository/entities/repository.entity';
 import {
   Entity,
   Column,

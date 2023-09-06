@@ -6,8 +6,8 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { Metrics } from 'src/metrics/entities/metrics.entity';
-import { Tribe } from 'src/tribe/entities/tribe.entity';
+import { Metrics } from '../../metrics/entities/metrics.entity';
+import { Tribe } from '../../tribe/entities/tribe.entity';
 
 export const RepositoryStateEnum = {
   ENABLE: 'E',

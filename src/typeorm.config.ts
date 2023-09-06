@@ -17,9 +17,8 @@ export const DB_OPTIONS = {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_DATABASE,
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
-  migrations: [join(__dirname, 'migrations/**/*{.ts,.js}')],
+  migrations: [join(__dirname, 'db/migrations/**/*{.ts,.js}')],
   migrationsTableName: 'migrations',
-  seeds: ['./seeds/**/*{.ts,.js}'],
 };
 
 export const source = new DataSource(
