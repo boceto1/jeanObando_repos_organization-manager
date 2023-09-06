@@ -12,10 +12,14 @@ interface IRepository {
 export class ThirdPartyValidatorService {
   constructor(private readonly httpService: HttpService) {}
 
-  async getRepositoryState(id: number): Promise<IRepository[]> {
+  async getRepositoryState(
+    id: number,
+  ): Promise<{ repositories: IRepository[] }> {
     const { data } = await firstValueFrom(
       this.httpService
-        .get<IRepository[]>(`http://localhost:3000/mock-api/${id}`)
+        .get<{ repositories: IRepository[] }>(
+          `http://localhost:3000/mock-api/${id}`,
+        )
         .pipe(
           catchError((error: AxiosError) => {
             console.log(error);

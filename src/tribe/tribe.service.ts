@@ -13,7 +13,7 @@ export class TribeService {
   ) {}
 
   async getRepositoryMetrics(id: number): Promise<any> {
-    const repository = await this.tribeRepository.findOne({
+    const tribe = await this.tribeRepository.findOne({
       where: { idTribe: id },
       relations: {
         organization: true,
@@ -23,11 +23,38 @@ export class TribeService {
       },
     });
 
-    if (!repository) {
+    if (!tribe) {
       throw new NotFoundException();
     }
 
-    const res = await this.thirdPartyValidatorService.getRepositoryState(2);
-    return res;
+    const organization = tribe.organization;
+    const repositories = tribe.repositories;
+
+    const verificationStates =
+      await this.thirdPartyValidatorService.getRepositoryState(2);
+
+    const verificationStatesMap = verificationStates.repositories.reduce(
+      (map, verificationState) => {
+        map[verificationState.id] = verificationState.state;
+        return map;
+      },
+      {},
+    );
+
+    const response = repositories.map((repo) => ({
+      id: repo.idRepository,
+      name: repo.name,
+      tribe: tribe.name,
+      organization: organization.name,
+      coverage: repo.metrics.coverage, // Transform to percentaje
+      codeSmells: repo.metrics.codeSmells,
+      bugs: repo.metrics.bugs,
+      vulnerabilities: repo.metrics.vulnerabilities,
+      hotspots: repo.metrics.hotspot,
+      verificationState: verificationStatesMap[repo.idRepository],
+      state: repo.status,
+    }));
+
+    return response;
   }
 }
