@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsDateString,
   IsEnum,
@@ -29,14 +30,17 @@ export const FilterByEnum = {
 export type FilterByEnum = (typeof FilterByEnum)[keyof typeof FilterByEnum];
 
 export class GetRepositoryMetricsQueryDto {
+  @ApiProperty()
   @IsOptional()
   @IsDateString()
   readonly from: string;
 
+  @ApiProperty()
   @IsOptional()
   @IsEnum(REPOSITORY_CLIENT_STATE)
   readonly state: REPOSITORY_CLIENT_STATE;
 
+  @ApiProperty()
   @IsOptional()
   @IsNumberString()
   readonly minCoverage: number;

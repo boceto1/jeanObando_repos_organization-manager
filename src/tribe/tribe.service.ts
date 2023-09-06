@@ -10,6 +10,7 @@ import {
   REPOSITORY_STATE,
   REPOSITORY_CLIENT_STATE,
 } from './dto/get-repository-metrics-query.dto';
+import { json2csv } from 'json-2-csv';
 
 const VERIFICATION_STATE = {
   604: 'Verificado',
@@ -44,6 +45,7 @@ export class TribeService {
     }
 
     const organization = tribe.organization;
+
     const { from, minCoverage, state } = query;
     const repositories = this.filterRepository(tribe.repositories, {
       [FilterByEnum.DATE]: from,
@@ -78,6 +80,15 @@ export class TribeService {
     );
 
     return response;
+  }
+
+  async generateRepositoryMetricsReport(
+    id: number,
+    query: GetRepositoryMetricsQueryDto,
+  ): Promise<any> {
+    const metrics = await this.getRepositoryMetrics(id, query);
+    const csv = await json2csv(metrics);
+    return csv;
   }
 
   private mapResponse(
