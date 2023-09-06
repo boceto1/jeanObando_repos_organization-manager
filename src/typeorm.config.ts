@@ -9,10 +9,10 @@ ConfigModule.forRoot({
   envFilePath: '.env',
 });
 
-export const DB_OPTIONS = {
-  type: 'mysql' as MysqlConnectionOptions['type'],
+const MYSQL_DB_OPTIONS = {
+  type: 'mysql',
   host: process.env.DATABASE_HOST || 'localhost',
-  port: parseInt(String(process.env.DATABASE_PORT), 10) || 3306,
+  port: process.env.DATABASE_PORT || 3306,
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_DATABASE,
@@ -20,6 +20,24 @@ export const DB_OPTIONS = {
   migrations: [join(__dirname, 'db/migrations/**/*{.ts,.js}')],
   migrationsTableName: 'migrations',
 };
+
+const COCKROACH_DB_OPTIONS = {
+  type: 'cockroachdb',
+  url: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
+  synchronize: false,
+  logging: false,
+  entities: [__dirname + '/**/*.entity{.ts,.js}'],
+  migrations: [join(__dirname, 'db/migrations/**/*{.ts,.js}')],
+  migrationsTableName: 'migrations',
+};
+
+const GENERAL_DB_OPTIONS = {
+  mysql: MYSQL_DB_OPTIONS,
+  cockroachdb: COCKROACH_DB_OPTIONS,
+};
+
+export const DB_OPTIONS = GENERAL_DB_OPTIONS[process.env.DATABASE_DRIVER];
 
 export const source = new DataSource(
   DB_OPTIONS as DataSourceOptions & SeederOptions,

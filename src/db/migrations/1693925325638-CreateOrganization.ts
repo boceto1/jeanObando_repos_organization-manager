@@ -25,7 +25,7 @@ export class CreateOrganization1693925325638 implements MigrationInterface {
           },
           {
             name: 'deletedAt',
-            type: 'datetime',
+            type: 'timestamp',
             isNullable: true,
           },
         ],

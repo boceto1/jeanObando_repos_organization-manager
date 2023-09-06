@@ -32,7 +32,7 @@ export class CreateRepository1693934939113 implements MigrationInterface {
           },
           {
             name: 'createdAt',
-            type: 'datetime',
+            type: 'timestamp',
           },
           {
             name: 'logicStatus',

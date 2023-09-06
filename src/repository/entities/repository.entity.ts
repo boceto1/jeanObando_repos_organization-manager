@@ -35,7 +35,7 @@ export class Repository {
   @Column({ length: 1, type: 'char', enum: ['E', 'D', 'A'] })
   status: string;
 
-  @Column({ type: 'datetime', default: Date.now() })
+  @Column({ type: 'timestamp', default: Date.now() })
   createdAt: Date;
 
   @Column({ length: 1, type: 'varchar', enum: ['A', 'I'] })
