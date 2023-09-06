@@ -13,14 +13,14 @@ export const REPOSITORY_STATE = {
 } as const;
 export type REPOSITORY_STATE = keyof typeof REPOSITORY_STATE;
 
-export const REPOSITORY_CLIENT_STATE = {
+export const RepositoryClientStateEnum = {
   E: 'Enable',
   D: 'Disable',
   A: 'Archived',
 } as const;
 
-export type REPOSITORY_CLIENT_STATE =
-  (typeof REPOSITORY_STATE)[keyof typeof REPOSITORY_STATE];
+export type RepositoryClientStateEnum =
+  (typeof RepositoryClientStateEnum)[keyof typeof RepositoryClientStateEnum];
 
 export const FilterByEnum = {
   DATE: 'from',
@@ -37,8 +37,8 @@ export class GetRepositoryMetricsQueryDto {
 
   @ApiProperty()
   @IsOptional()
-  @IsEnum(REPOSITORY_CLIENT_STATE)
-  readonly state: REPOSITORY_CLIENT_STATE;
+  @IsEnum(RepositoryClientStateEnum)
+  readonly state: RepositoryClientStateEnum;
 
   @ApiProperty()
   @IsOptional()
