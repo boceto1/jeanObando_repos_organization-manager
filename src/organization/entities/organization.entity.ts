@@ -1,4 +1,4 @@
-import { Tribe } from 'src/tribe/entities/tribe.entity';
+import { Tribe } from '../../tribe/entities/tribe.entity';
 import {
   Entity,
   Column,

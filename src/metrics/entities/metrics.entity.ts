@@ -1,4 +1,4 @@
-import { Repository } from 'src/repository/entities/repository.entity';
+import { Repository } from '../../repository/entities/repository.entity';
 import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn } from 'typeorm';
 
 @Entity()
