@@ -52,8 +52,8 @@ Adicionalmente se ha implementado lo siguiente:
 4. Ejecuta la aplicación utilizando el comando [comando de inicio].
 
 ```bash
-$ git clone https://github.com/boceto1/jeanObando_repos_habit_tracker.git
-$ cd jeanObando_repos_habit_tracker
+$ git clone https://github.com/boceto1/jeanObando_repos_organization-manager.git
+$ cd jeanObando_repos_organization-manager
 $ nvm use # para asegurar utilizar la correcta versión de node
 $ yarn install
 $ cp .env.example .env # Copia el archivo de ejemplo de variables de entorno y configúralo adecuadamente
