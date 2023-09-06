@@ -25,7 +25,7 @@ export interface IResponseMetrics {
   name: string;
   tribe: string;
   organization: string;
-  coverage: string; // Transform to percentaje
+  coverage: string;
   codeSmells: number;
   bugs: number;
   vulnerabilities: number;
@@ -45,7 +45,7 @@ export class TribeService {
   async getRepositoryMetrics(
     id: number,
     query?: GetRepositoryMetricsQueryDto,
-  ): Promise<IResponseMetrics[]> {
+  ): Promise<{ repositories: IResponseMetrics[] }> {
     const tribe = await this.tribeRepository.findOne({
       where: { idTribe: id },
       relations: {
@@ -95,7 +95,7 @@ export class TribeService {
       {},
     );
 
-    const response = repositories.map((repo) =>
+    const parsedRepositories = repositories.map((repo) =>
       this.mapResponse(
         organization.name,
         tribe.name,
@@ -104,7 +104,7 @@ export class TribeService {
       ),
     );
 
-    return response;
+    return { repositories: parsedRepositories };
   }
 
   async generateRepositoryMetricsReport(
@@ -112,7 +112,7 @@ export class TribeService {
     query: GetRepositoryMetricsQueryDto,
   ): Promise<any> {
     const metrics = await this.getRepositoryMetrics(id, query);
-    const csv = await json2csv(metrics);
+    const csv = await json2csv(metrics.repositories);
     return csv;
   }
 

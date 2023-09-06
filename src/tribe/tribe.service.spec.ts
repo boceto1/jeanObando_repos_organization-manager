@@ -112,8 +112,8 @@ describe('TribeService', () => {
 
         const response = await service.getRepositoryMetrics(1);
 
-        expect(response.length).toBe(1);
-        const repositoryMetrics = response[0];
+        expect(response.repositories.length).toBe(1);
+        const repositoryMetrics = response.repositories[0];
 
         expect(repositoryMetrics).toBeDefined();
         expect(repositoryMetrics.organization).toBe('mock org');
@@ -178,7 +178,7 @@ describe('TribeService', () => {
           from: undefined,
           state: undefined,
         });
-        expect(response.length).toBe(0);
+        expect(response.repositories.length).toBe(0);
       });
     });
   });
