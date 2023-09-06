@@ -10,6 +10,7 @@ import { TribeModule } from './tribe/tribe.module';
 import { DB_OPTIONS } from './typeorm.config';
 import { RepositoryModule } from './repository/repository.module';
 import { MetricsModule } from './metrics/metrics.module';
+import { ThirdPartyValidatorModule } from './third-party-validator/third-party-validator.module';
 
 ConfigModule.forRoot({
   envFilePath: '../.env',
@@ -23,6 +24,7 @@ ConfigModule.forRoot({
     TribeModule,
     RepositoryModule,
     MetricsModule,
+    ThirdPartyValidatorModule,
   ],
   controllers: [MockApiController],
   providers: [MockApiService],
