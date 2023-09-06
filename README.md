@@ -95,6 +95,17 @@ Existen pruebas para:
 
 _Nota: Al `generateRepositoryMetricsReport` basarse en `getRepositoryMetrics`, y solo implementar funcionalidad para la generación del csv hemos decidido no implementar pruebas por tiempo. Sin embargo, sería oportuno hacerlo más adelante`._
 
+
+## Roadmap
+
+A mi parece el proyecto podría continuar implementando las siguientes funcionalidades:
+
+* CRUD services para cada una de las entidates. Puede ser que podamos manejar Repositorio y Metrics en el Servicio.
+
+* Añadir el servicio de Logging para capturar que endpoints están siendo llamados, con que datos, cuales han sido las respuestas y si hay errores.
+
+* El ejercicio plantea que existe un tipo de usuario que puede manipular estos datos, el `administrador de la plataforma`, entonces sería bueno definir una entidad de usuarios con Roles. Con ello podemos implementar estrategias de auteticación y autorización.
+
 ---
 
 Gracias por revisar mi proyecto. Si tienes alguna pregunta o sugerencia, no dudes en contactarme.
