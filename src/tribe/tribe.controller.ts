@@ -15,7 +15,7 @@ export class TribeController {
   getRepositoryMetrics(
     @Param('id') id: string,
     @Query() query: GetRepositoryMetricsQueryDto,
-  ): Promise<IResponseMetrics[]> {
+  ): Promise<{ repositories: IResponseMetrics[] }> {
     return this.tribeService.getRepositoryMetrics(+id, query);
   }
 
