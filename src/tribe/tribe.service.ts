@@ -1,14 +1,27 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository as RepositoryORM } from 'typeorm';
 import { Tribe } from './entities/tribe.entity';
 import { ThirdPartyValidatorService } from 'src/third-party-validator/third-party-validator.service';
+import { Repository } from 'src/repository/entities/repository.entity';
+
+const VERIFICATION_STATE = {
+  604: 'Verificado',
+  605: 'En espera',
+  606: 'Aprobado',
+} as const;
+
+const REPOSITORY_STATE = {
+  E: 'Enable',
+  D: 'Disable',
+  A: 'Archived',
+} as const;
 
 @Injectable()
 export class TribeService {
   constructor(
     @InjectRepository(Tribe)
-    private tribeRepository: Repository<Tribe>,
+    private tribeRepository: RepositoryORM<Tribe>,
     private thirdPartyValidatorService: ThirdPartyValidatorService,
   ) {}
 
@@ -41,20 +54,54 @@ export class TribeService {
       {},
     );
 
-    const response = repositories.map((repo) => ({
+    const response = repositories.map((repo) =>
+      this.mapResponse(
+        organization.name,
+        tribe.name,
+        verificationStatesMap,
+        repo,
+      ),
+    );
+
+    return response;
+  }
+
+  private mapResponse(
+    organization: string,
+    tribe: string,
+    verificationStateMap: any,
+    repo: Repository,
+  ) {
+    return {
       id: repo.idRepository,
       name: repo.name,
-      tribe: tribe.name,
-      organization: organization.name,
-      coverage: repo.metrics.coverage, // Transform to percentaje
+      tribe,
+      organization,
+      coverage: this.parseCoverage(repo.metrics.coverage), // Transform to percentaje
       codeSmells: repo.metrics.codeSmells,
       bugs: repo.metrics.bugs,
       vulnerabilities: repo.metrics.vulnerabilities,
       hotspots: repo.metrics.hotspot,
-      verificationState: verificationStatesMap[repo.idRepository],
-      state: repo.status,
-    }));
+      verificationState: this.parseVerificationState(
+        verificationStateMap[repo.idRepository],
+      ),
+      state: this.parseRepositoryState(repo.status),
+    };
+  }
 
-    return response;
+  private parseVerificationState(verificationStateCode: number) {
+    if (!(verificationStateCode in VERIFICATION_STATE)) {
+      throw new Error();
+    }
+
+    return VERIFICATION_STATE[verificationStateCode];
+  }
+
+  private parseRepositoryState(repositoryStateCode: string) {
+    return REPOSITORY_STATE[repositoryStateCode];
+  }
+
+  private parseCoverage(coverage: number) {
+    return `${coverage.toFixed(2)}%`;
   }
 }
