@@ -5,12 +5,14 @@ import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { Organization } from './entities/organization.entity';
 import { OKResult } from 'src/utils/types';
+import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 
 @Injectable()
 export class OrganizationService {
   constructor(
     @InjectRepository(Organization)
     private organizationsRepository: Repository<Organization>,
+    private eventEmitter: EventEmitter2,
   ) {}
 
   async create(
@@ -58,5 +60,19 @@ export class OrganizationService {
       throw new NotFoundException();
     }
     return this.findAll();
+  }
+
+  async batchOrganizations(): Promise<void> {
+    this.eventEmitter.emit('organization.batch', { name: 'lalalal' });
+  }
+
+  @OnEvent('organization.batch')
+  async notifyOrganizationBatch(payload) {
+    console.log(payload);
+    setTimeout(() => {
+      console.log(
+        `Hello user, ${payload.name} has been added to our menu. Enjoy.`,
+      );
+    }, 7000);
   }
 }

@@ -11,6 +11,7 @@ import { DB_OPTIONS } from './typeorm.config';
 import { RepositoryModule } from './repository/repository.module';
 import { MetricsModule } from './metrics/metrics.module';
 import { ThirdPartyValidatorModule } from './third-party-validator/third-party-validator.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 ConfigModule.forRoot({
   envFilePath: '../.env',
@@ -25,6 +26,7 @@ ConfigModule.forRoot({
     RepositoryModule,
     MetricsModule,
     ThirdPartyValidatorModule,
+    EventEmitterModule.forRoot(),
   ],
   controllers: [MockApiController],
   providers: [MockApiService],

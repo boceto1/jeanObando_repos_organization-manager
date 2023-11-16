@@ -30,18 +30,18 @@ export const FilterByEnum = {
 export type FilterByEnum = (typeof FilterByEnum)[keyof typeof FilterByEnum];
 
 export class GetRepositoryMetricsQueryDto {
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsDateString()
-  readonly from: string;
+  readonly from?: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsEnum(RepositoryClientStateEnum)
-  readonly state: RepositoryClientStateEnum;
+  readonly state?: RepositoryClientStateEnum;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsNumberString()
-  readonly minCoverage: number;
+  readonly minCoverage?: number;
 }

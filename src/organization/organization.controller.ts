@@ -58,4 +58,12 @@ export class OrganizationController {
   remove(@Param('id') id: string): Promise<Organization[]> {
     return this.organizationService.remove(+id);
   }
+
+  @Post('batch')
+  batchOrganizations(): Promise<string> {
+    this.organizationService.batchOrganizations();
+    return new Promise((resolve) => {
+      resolve('Evento enviado');
+    });
+  }
 }
